@@ -1,0 +1,7 @@
+prices:
+    required_columns: [symbol, date, open, high, low, close, volume]
+    numeric_columns: [open, high, low, close, volume]
+
+macro:
+    required_columns: [series_id, date, value]
+    numeric_columns: [value]
