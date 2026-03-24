@@ -1,2 +1,13 @@
 docs/
 PLAN.md
+.env
+data/fund.duckdb
+data/parquet/
+*.pyc
+__pycache__/
+.venv/
+.pytest_cache/
+*.egg-info/
+dist/
+.ruff_cache/
+reports/*.html

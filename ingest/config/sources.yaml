@@ -1,0 +1,19 @@
+market:
+    source: yfinance
+    schedule: "0 18 * * 1-5"  # 6pm weekdays after market close
+
+macro:
+    source: fred
+    schedule: "0 19 * * 1-5"
+
+sec_filings:
+    source: edgar
+    schedule: "0 20 * * 1-5"
+    filing_types: ["10-K", "10-Q", "8-K"]
+
+earnings:
+    source: fmp
+    schedule: "0 21 * * 1-5"
+
+pipeline:
+    schedule: "0 22 * * 1-5"  # 10pm ET after all data available

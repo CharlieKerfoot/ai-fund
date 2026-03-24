@@ -1,0 +1,72 @@
+# AI Fund Research Stack — Configuration
+# All secrets belong in .env. This file contains non-secret settings.
+
+universe:
+    # S&P 500 subset for development; expand to full 500 for production
+    default: "sp500_top100"
+    sp500_top100:
+        - AAPL, MSFT, NVDA, AMZN, META, GOOGL, BRK-B, LLY, JPM, V
+        - UNH, XOM, TSLA, MA, AVGO, JNJ, PG, HD, MRK, COST
+        - ABBV, CVX, ORCL, BAC, KO, NFLX, WMT, CRM, MCD, PEP
+        - TMO, DIS, CSCO, ACN, ABT, ADBE, WFC, LIN, AMD, DHR
+        - TXN, AMGN, NKE, PM, CAT, INTU, GE, RTX, SPGI, ISRG
+        - BMY, QCOM, NOW, HON, UNP, AMAT, BKNG, PFE, LOW, GS
+        - T, SBUX, ELV, MDT, GILD, MS, TJX, SYK, BLK, VRTX
+        - C, DE, AXP, PLD, MO, REGN, ADI, PANW, CB, MMM
+        - BSX, ZTS, LRCX, KLAC, CI, WM, FI, PGR, SO, SLB
+        - MU, MDLZ, DUK, EOG, ITW, CME, BDX, NOC, NEE, MCO
+
+fred:
+    series:
+        - GDP          # Gross Domestic Product
+        - CPIAUCSL     # CPI All Urban Consumers
+        - UNRATE       # Unemployment Rate
+        - FEDFUNDS     # Federal Funds Effective Rate
+        - DGS10        # 10-Year Treasury Constant Maturity Rate
+        - DGS2         # 2-Year Treasury Constant Maturity Rate
+        - BAA10Y       # Moody's Baa Corporate Bond Minus 10-Year Treasury
+        - VIXCLS       # CBOE Volatility Index
+        - M2SL         # M2 Money Stock
+        - DCOILWTICO   # WTI Crude Oil Price
+
+edgar:
+    user_agent: "ai-fund-research contact@example.com"
+    rate_limit_per_sec: 8   # EDGAR allows 10/sec; be conservative
+    filing_types:
+        - "10-K"
+        - "10-Q"
+        - "8-K"
+
+risk_limits:
+    max_position_pct: 0.05
+    max_sector_pct: 0.25
+    max_daily_loss_pct: 0.03
+    max_annual_turnover: 2.0
+    max_gross_leverage: 1.0
+    min_positions: 20
+
+backtest:
+    transaction_cost_bps: 10   # 10 bps round-trip
+    slippage_bps: 5            # additional market impact
+    min_history_days: 252      # minimum 1 year for validation
+
+execution:
+    initial_capital: 1_000_000
+    currency: "USD"
+
+pipeline:
+    stages:
+        - ingest
+        - extract
+        - signals
+        - regime
+        - optimize
+        - risk
+        - execute
+        - report
+
+llm:
+    model: "claude-opus-4-6"
+    max_tokens: 4096
+    extraction_max_retries: 3
+    chunk_size_chars: 80000    # ~20K tokens
